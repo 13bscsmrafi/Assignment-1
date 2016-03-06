@@ -1,0 +1,65 @@
+#include<iostream>
+using namespace std;
+class StringBuffer{
+private:
+	char* strbuf;
+	int length;
+	std::string str;
+
+public:
+	StringBuffer()
+	{
+		strbuf=NULL;
+	}
+	StringBuffer::~StringBuffer()
+	{
+	 delete [] strbuf;
+	}
+	StringBuffer::StringBuffer(const StringBuffer& cSource)
+{
+    // because _length is not a pointer, we can shallow copy it
+    length = cSource.length;
+ 
+    // _strbuf is a pointer, so we need to deep copy it if it is non-null
+    if (cSource.strbuf)
+    {
+        // allocate memory for our copy
+        strbuf = new char[length];
+ 
+        // Copy the string into our newly allocated memory
+        strncpy(strbuf, cSource.strbuf, length);
+    }
+    else
+        strbuf = 0;
+	}
+	int set()
+	{
+		strbuf = "Hello, World!";
+		std::string str(strbuf);
+		return str.length();
+	}
+	void get()
+	{
+		cout<<this->strbuf<<endl;
+		//cout << *(strbuf+4);
+		cout<<endl;
+	}
+	void append(int x,char c)
+	{
+		*(strbuf+x-1)=c;
+		cout<<this->strbuf<<endl;
+	}
+};
+int main ()
+{
+	StringBuffer sb ;
+	cout<<"Lenght of string is:"<<sb.set()<<endl;
+	cout<<"String is:";
+	sb.get();
+	sb.append(1,'f');
+
+	 
+
+	system("pause");
+	return 0;
+}
